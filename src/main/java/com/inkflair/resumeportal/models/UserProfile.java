@@ -2,6 +2,8 @@ package com.inkflair.resumeportal.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -18,6 +20,11 @@ public class UserProfile {
     private String email;
     private String phone;
     private String designation;
+
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "job_id")
+    private List<Job> jobs = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;
@@ -89,5 +96,13 @@ public class UserProfile {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }
